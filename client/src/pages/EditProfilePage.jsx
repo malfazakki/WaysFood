@@ -6,11 +6,12 @@ import { useModal } from "../context/ModalContext";
 
 //Component
 import Navbar from "../components/Navbar";
-import MapLiveLocation from "../components/modal/MapLiveLocation"
+import MapLiveLocation from "../components/modal/MapLiveLocation";
 
 // Assets
 import attachment from "../assets/images/attachment.svg";
 import selectMap from "../assets/images/select-map.svg";
+import Modal from "../components/modal/Modal";
 
 export default function EditProfilePage() {
   const title = "Edit Profile";
@@ -85,6 +86,13 @@ export default function EditProfilePage() {
     }
   });
 
+  const [clickedPosition, setClickedPosition] = useState(null);
+
+  if (clickedPosition) {
+    console.log("latitude" + clickedPosition.lat);
+    console.log("longitude" + clickedPosition.lng);
+  }
+
   return (
     <>
       <div className="bg-[#efefef] min-h-[100vh]">
@@ -137,9 +145,28 @@ export default function EditProfilePage() {
                   className="py-2 px-5 bg-[#e2e2e2] border-2 border-[#766c6c] rounded-md placeholder-[#928b8b]"
                   disabled
                 />
-                <input type="text" name="latitude" hidden onChange={handleChange} value={form?.latitude} />
-                <input type="text" name="longitude" hidden onChange={handleChange} value={form?.longitude} />
-                <div className="py-2 px-5 bg-[#433434] hover:bg-[#3d3030] active:bg-[#201919] active:ring-2 active:ring-yellow-700 rounded-md text-white font-semibold flex justify-between items-center cursor-pointer" onClick={() => openModal(<MapLiveLocation />)}>
+                <input
+                  type="text"
+                  name="latitude"
+                  hidden
+                  onChange={handleChange}
+                  value={clickedPosition ? clickedPosition.lat : form?.longitude}
+                />
+                <input
+                  type="text"
+                  name="longitude"
+                  hidden
+                  onChange={handleChange}
+                  value={clickedPosition ? clickedPosition.lng : form?.longitude}
+                />
+                <div
+                  className="py-2 px-5 bg-[#433434] hover:bg-[#3d3030] active:bg-[#201919] active:ring-2 active:ring-yellow-700 rounded-md text-white font-semibold flex justify-between items-center cursor-pointer"
+                  onClick={() =>
+                    openModal(
+                      <MapLiveLocation clickedPosition={clickedPosition} setClickedPosition={setClickedPosition} />
+                    )
+                  }
+                >
                   <p className="text-sm select-none">Select on Map</p>
                   <img src={selectMap} alt="selectMap" />
                 </div>
@@ -157,6 +184,7 @@ export default function EditProfilePage() {
           </form>
         </div>
       </div>
+      <Modal />
     </>
   );
 }
