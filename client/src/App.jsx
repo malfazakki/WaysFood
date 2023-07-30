@@ -12,6 +12,7 @@ import ProfilePage from "./pages/ProfilePage";
 import PartnerPage from "./pages/PartnerPage";
 import EditProfilePage from "./pages/EditProfilePage";
 import AddProductPage from "./pages/AddProductPage";
+import Map from "./components/modal/MapLiveLocation";
 
 export default function App() {
   const navigate = useNavigate();
@@ -66,9 +67,10 @@ export default function App() {
           <ModalProvider>
             <Routes>
               <Route path="/" element={<LandingPage />} />
-              
+
               <Route element={<PrivateRouteLogin />}>
                 <Route element={<PrivateRouteUser />}>
+                  <Route exact path="/user/map" element={<Map />} />
                   <Route exact path="/user/cart" element={<Cart />} />
                   <Route exact path="/user/profile/:userId" element={<ProfilePage />} />
                   <Route exact path="/user/edit-profile/:userId" element={<EditProfilePage />} />

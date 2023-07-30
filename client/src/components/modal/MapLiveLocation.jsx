@@ -1,27 +1,38 @@
-import { MapContainer, TileLayer } from "react-leaflet";
-import LocationMarker from "../LocationMarker";
-import L from "leaflet";
+import React, { useState } from "react";
+import { MapContainer, TileLayer, Marker, Popup, useMapEvents } from "react-leaflet";
+import "leaflet/dist/leaflet.css";
 
-export default function MapLiveLocation() {
-  const position = [-6.38181, 106.749608];
-
-  let DefaultIcon = L.icon({
-    iconUrl: "/marker-icon.png",
-    iconSize: [25, 41],
-    iconAnchor: [10, 41],
-    popupAnchor: [2, -40],
+function LocationMarker() {
+  const [position, setPosition] = useState(null);
+  const map = useMapEvents({
+    click(e) {
+      const { lat, lng } = e.latlng;
+      console.log(`Clicked at latitude: ${lat}, longitude: ${lng}`);
+      map.locate();
+    },
+    locationfound(e) {
+      setPosition(e.latlng);
+      map.flyTo(e.latlng, map.getZoom());
+    },
   });
-  L.Marker.prototype.options.icon = DefaultIcon;
 
-  return (
-    <div className="App">
-      <MapContainer center={position} zoom={13} scrollWheelZoom={false}>
-        <TileLayer
-          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-        />
-        <LocationMarker />
-      </MapContainer>
-    </div>
+  console.log(position);
+
+  return position === null ? null : (
+    <Marker position={position}>
+      <Popup>You are here</Popup>
+    </Marker>
   );
 }
+
+const Map = () => {
+  return (
+    
+    <MapContainer center={[51.505, -0.09]} zoom={13} style={{ width: "40%", height: "calc(40vh)", margin: "0 auto" }}>
+      <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+      <LocationMarker />
+    </MapContainer>
+  );
+};
+
+export default Map;
