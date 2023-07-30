@@ -14,6 +14,7 @@ import profile from "../assets/images/profile.svg";
 import logouticon from "../assets/images/logout.svg";
 import add_product from "../assets/images/add-product.svg";
 import avatar from "../assets/images/avatar.svg";
+import cart from "../assets/images/cart.svg";
 
 export default function Navbar() {
   const { openModal } = useModal();
@@ -53,7 +54,15 @@ export default function Navbar() {
         {/* Conditional Rendering Section */}
         {isLogin ? (
           <div className="w-full grid grid-flow-col-dense gap-5 justify-end">
-            <div>
+            <div className="w-full grid grid-cols-2 gap-5">
+              {role == "user" && (
+                <div
+                  onClick={() => navigate("/user/cart")}
+                  className="hover:scale-90 cursor-pointer transition-transform duration-500"
+                >
+                  <img src={cart} alt="cart" />
+                </div>
+              )}
               <div
                 className="flex gap-[12px] items-center hover:scale-90 cursor-pointer transition-transform duration-500"
                 onClick={handleDropdown}

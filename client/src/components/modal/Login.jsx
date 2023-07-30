@@ -35,8 +35,6 @@ export default function Login() {
 
       const response = await API.post("/login", form);
 
-      console.log("login success : ", response);
-
       dispatch({
         type: "LOGIN_SUCCESS",
         payload: response.data.data,

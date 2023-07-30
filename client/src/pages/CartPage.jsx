@@ -1,3 +1,5 @@
+// import { useState } from "react";
+import { useModal } from "../context/ModalContext";
 import { useState } from "react";
 
 //Component
@@ -5,11 +7,14 @@ import Navbar from "../components/Navbar";
 
 // Assets
 import geprek from "../assets/images/geprek.svg";
-import deleteIcon from "../assets/images/delete.svg";
+// import deleteIcon from "../assets/images/delete.svg";
 import selectMap from "../assets/images/select-map.svg";
 
 export default function Cart() {
-  const [count, setCount] = useState(1);
+  // const [count, setCount] = useState(1);
+  const { openModal } = useModal();
+  const [clickedPosition, setClickedPosition] = useState(null);
+
   return (
     <>
       <div className="bg-[#efefef] min-h-[100vh]">
@@ -32,7 +37,7 @@ export default function Cart() {
                   <img src={geprek} alt="geprek" />
                   <div className="ml-5 flex flex-col justify-between py-2">
                     <p className="font-bold">Paket Geprek</p>
-                    <div className="flex gap-5">
+                    {/* <div className="flex gap-5">
                       <button
                         className="py-0 px-2 bg-yellow-500"
                         onClick={() => {
@@ -50,14 +55,14 @@ export default function Cart() {
                       >
                         +
                       </button>
-                    </div>
+                    </div> */}
                   </div>
                 </div>
                 <div className="grid grid-rows-2 justify-end py-2">
                   <p className="text-md w-full font-sans mt-1 text-red-500">Rp. 25,000</p>
-                  <div className="flex justify-end">
+                  {/* <div className="flex justify-end">
                     <img src={deleteIcon} alt="deleteIcon" className="scale-[80%]" />
-                  </div>
+                  </div> */}
                 </div>
               </div>
             </div>

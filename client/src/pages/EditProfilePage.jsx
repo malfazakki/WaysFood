@@ -22,6 +22,8 @@ export default function EditProfilePage() {
   const { userId } = useParams();
   const { openModal } = useModal();
 
+  const [clickedPosition, setClickedPosition] = useState(null);
+
   const [form, setForm] = useState({
     email: "",
     username: "",
@@ -43,8 +45,6 @@ export default function EditProfilePage() {
       longitude: response.data.data.longitude,
       image: response.data.data.image,
     });
-
-    console.log(response);
   }
 
   useEffect(() => {
@@ -70,14 +70,19 @@ export default function EditProfilePage() {
       };
 
       const formData = new FormData();
-      if (form.image) {
-        formData.set("image", form?.image[0], form?.image[0]?.name);
+      if (form.image && form.image.length > 0) {
+        // Append each file to the FormData separately
+        for (let i = 0; i < form.image.length; i++) {
+          formData.append("image", form.image[i]);
+        }
       }
       formData.set("username", form.username);
       formData.set("email", form.email);
       formData.set("phone", form.phone);
-      formData.set("latitude", form.latitude);
-      formData.set("longitude", form.longitude);
+      if (clickedPosition) {
+        formData.set("latitude", clickedPosition.lat);
+        formData.set("longitude", clickedPosition.lng);
+      }
 
       const response = await API.patch("/user/" + userId, formData, config);
       console.log(response.data);
@@ -86,13 +91,6 @@ export default function EditProfilePage() {
     }
   });
 
-  const [clickedPosition, setClickedPosition] = useState(null);
-
-  if (clickedPosition) {
-    console.log("latitude" + clickedPosition.lat);
-    console.log("longitude" + clickedPosition.lng);
-  }
-
   return (
     <>
       <div className="bg-[#efefef] min-h-[100vh]">
@@ -100,7 +98,7 @@ export default function EditProfilePage() {
 
         <div className="w-[70%] mx-auto mt-16">
           <h1 className="font-semibold font-serif text-[26px] text-[#433434] mb-5">Edit Profile</h1>
-          <form onSubmit={(e) => handleSubmit.mutate(e)}>
+          <form onSubmit={(e) => handleSubmit.mutate(e)} method="POST" encType="multipart/form-data">
             <div>
               <div className="grid grid-cols-[5fr_1fr] gap-3">
                 <input
@@ -148,16 +146,18 @@ export default function EditProfilePage() {
                 <input
                   type="text"
                   name="latitude"
+                  disabled
                   hidden
                   onChange={handleChange}
-                  value={clickedPosition ? clickedPosition.lat : form?.longitude}
+                  value={clickedPosition ? clickedPosition.lat : form.latitude}
                 />
                 <input
                   type="text"
                   name="longitude"
+                  disabled
                   hidden
                   onChange={handleChange}
-                  value={clickedPosition ? clickedPosition.lng : form?.longitude}
+                  value={clickedPosition ? clickedPosition.lng : form.longitude}
                 />
                 <div
                   className="py-2 px-5 bg-[#433434] hover:bg-[#3d3030] active:bg-[#201919] active:ring-2 active:ring-yellow-700 rounded-md text-white font-semibold flex justify-between items-center cursor-pointer"
