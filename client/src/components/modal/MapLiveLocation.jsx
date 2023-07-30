@@ -35,7 +35,7 @@ function LocationMarker({ onLocate, clickedPosition }) {
   );
 }
 
-const Map = ({ clickedPosition, setClickedPosition }) => {
+const MapLiveLocation = ({ clickedPosition, setClickedPosition }) => {
   const mapRef = useRef(null);
 
   const handleLocateClick = () => {
@@ -65,7 +65,7 @@ const Map = ({ clickedPosition, setClickedPosition }) => {
           {/* Pass the handleLocate function to LocationMarker */}
           <LocationMarker onLocate={handleLocate} clickedPosition={clickedPosition} />
         </MapContainer>
-        <button onClick={handleLocateClick} className="py-2 bg-slate-500 mt-5">
+        <button onClick={handleLocateClick} className="py-2 bg-[#433434] px-3 text-white font-semibold rounded-md mt-5">
           Locate Me
         </button>
       </div>
@@ -73,4 +73,4 @@ const Map = ({ clickedPosition, setClickedPosition }) => {
   );
 };
 
-export default Map;
+export default MapLiveLocation;
