@@ -3,6 +3,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import { MapContainer, TileLayer, Marker, Popup, useMapEvents } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
+import L from "leaflet";
 
 function LocationMarker({ onLocate, clickedPosition }) {
   const [position, setPosition] = useState(null);
@@ -28,8 +29,15 @@ function LocationMarker({ onLocate, clickedPosition }) {
     setPosition(e.target.getLatLng());
   };
 
+  const markerIcon = new L.Icon({
+    iconUrl: "/marker-icon.png",
+    iconSize: [40, 40],
+    iconAnchor: [17, 46], //[left/right, top/bottom]
+    popupAnchor: [0, -46], //[left/right, top/bottom]
+  });
+
   return position === null ? null : (
-    <Marker position={position} draggable={true} eventHandlers={{ dragend: handleMarkerDragEnd }}>
+    <Marker position={position} draggable={true} eventHandlers={{ dragend: handleMarkerDragEnd }} icon={markerIcon}>
       <Popup>You are here</Popup>
     </Marker>
   );

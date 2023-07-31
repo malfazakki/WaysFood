@@ -13,12 +13,18 @@ const LeafletRoutingMachine = ({ uLat, uLng, pLat, pLng }) => {
     iconUrl: "/marche.gif",
     iconSize: [90, 90],
   });
+  const markerIcon = new L.Icon({
+    iconUrl: "/marker-icon.png",
+    iconSize: [40, 40],
+    iconAnchor: [17, 46], //[left/right, top/bottom]
+    popupAnchor: [0, -46], //[left/right, top/bottom]
+  });
 
   useEffect(() => {
     if (markerRef.current) {
       markerRef.current.setLatLng([uLat, uLng]);
     } else {
-      markerRef.current = L.marker([uLat, uLng], { icon: DefaultIcon }).addTo(map);
+      markerRef.current = L.marker([uLat, uLng], { icon: markerIcon }).addTo(map);
     }
   }, [uLat, uLng, map]);
 

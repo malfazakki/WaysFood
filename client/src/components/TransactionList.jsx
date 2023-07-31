@@ -1,10 +1,15 @@
 import { API, setAuthToken } from "../config/api";
 import { useQuery } from "react-query";
+import { UserContext } from "../context/UserContext";
+import { useContext } from "react";
 
 import TransactionListsDetailPartner from "../components/TransactionListDetailPartner";
 import Modal from "./modal/Modal";
 
 export default function TransactionLists() {
+  const [state, dispatch] = useContext(UserContext);
+  const { user } = state;
+  const { id } = user;
   setAuthToken(localStorage.token);
   let {
     data: transactions,
@@ -15,6 +20,11 @@ export default function TransactionLists() {
     return response.data.data;
   });
 
+  console.log(transactions);
+
+  const partnerTransactions = transactions?.filter((element) => element.product.partner.id === id);
+
+  console.log("partner:" + partnerTransactions);
   return (
     <div className="mt-[60px] mx-auto mb-20 ">
       <h1 className="text-3xl font-semibold ml-[12%] font-serif mt-[100px]">Income Transaction</h1>
@@ -41,8 +51,8 @@ export default function TransactionLists() {
         </div>
         {isLoading ? (
           <p className="text-center">Loading...</p>
-        ) : transactions && transactions.length > 0 ? (
-          transactions.map((transaction, index) => (
+        ) : partnerTransactions && partnerTransactions.length > 0 ? (
+          partnerTransactions.map((transaction, index) => (
             <TransactionListsDetailPartner
               transaction={transaction}
               key={transaction.id}

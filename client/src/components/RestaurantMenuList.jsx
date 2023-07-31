@@ -5,6 +5,7 @@ import { API } from "../config/api";
 import { UserContext } from "../context/UserContext";
 import { useContext } from "react";
 export default function RestaurantMenuList({ menus }) {
+  // eslint-disable-next-line no-unused-vars
   const [state, dispatch] = useContext(UserContext);
   const { user } = state;
   const { role } = user;
