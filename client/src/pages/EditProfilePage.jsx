@@ -3,6 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useMutation } from "react-query";
 import { API } from "../config/api";
 import { useModal } from "../context/ModalContext";
+import axios from "axios";
 
 //Component
 import Navbar from "../components/Navbar";
@@ -21,6 +22,7 @@ export default function EditProfilePage() {
   const navigate = useNavigate();
   const { userId } = useParams();
   const { openModal } = useModal();
+  const [location, setLocation] = useState("");
 
   const [clickedPosition, setClickedPosition] = useState(null);
 
@@ -43,7 +45,7 @@ export default function EditProfilePage() {
       phone: response.data.data.phone,
       latitude: response.data.data.latitude,
       longitude: response.data.data.longitude,
-      image: response.data.data.image,
+      // image: response.data.data.image,
     });
   }
 
@@ -55,7 +57,7 @@ export default function EditProfilePage() {
   const handleChange = (e) => {
     setForm({
       ...form,
-      [e.target.name]: e.target.type === "file" ? e.target.files : e.target.value,
+      [e.target.name]: e.target.files ? e.target.files : e.target.value,
     });
   };
 
@@ -70,11 +72,14 @@ export default function EditProfilePage() {
       };
 
       const formData = new FormData();
-      if (form.image && form.image.length > 0) {
+      if (form.image != null) {
         // Append each file to the FormData separately
         for (let i = 0; i < form.image.length; i++) {
           formData.append("image", form.image[i]);
         }
+      } else {
+        // If no new image is selected, use the existing image value
+        formData.set("image", form.image);
       }
       formData.set("username", form.username);
       formData.set("email", form.email);
@@ -89,9 +94,32 @@ export default function EditProfilePage() {
       alert("success");
     } catch (error) {
       console.log(error);
-      alert("error");
+      alert("Fill in every column, including the image");
     }
   });
+
+  const latitude = clickedPosition ? clickedPosition.lat : form?.latitude;
+  const longitude = clickedPosition ? clickedPosition.lng : form?.longitude;
+
+  useEffect(() => {
+    // Fetch the address from LocationIQ when form.latitude or form.longitude changes
+    if (form.latitude && form.longitude) {
+      const api_key = "pk.ec3ec8e73ea41ccefedfd001e1e1ddab";
+      const url = `https://us1.locationiq.com/v1/reverse.php?key=${api_key}&lat=${latitude}&lon=${longitude}&format=json`;
+
+      axios
+        .get(url)
+        .then((response) => {
+          const data = response.data;
+          const address = data.display_name || "Address not found";
+          setLocation(address);
+        })
+        .catch((error) => {
+          console.error("Error fetching data:", error);
+        });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [latitude, longitude]);
 
   return (
     <>
@@ -144,6 +172,7 @@ export default function EditProfilePage() {
                   placeholder="Location"
                   className="py-2 px-5 bg-[#e2e2e2] border-2 border-[#766c6c] rounded-md placeholder-[#928b8b]"
                   disabled
+                  value={location}
                 />
                 <input
                   type="text"

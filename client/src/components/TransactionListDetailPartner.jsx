@@ -41,11 +41,9 @@ export default function TransactionListsDetailPartner({ transaction, index, refe
       <div className="flex items-center justify-center">
         <p>{transaction.user.username}</p>
       </div>
-      <div className="flex items-center justify-center">
-        <p>
-          {transaction.user.latitude}
-          {transaction.user.longitude}
-        </p>
+      <div className="flex items-center justify-center gap-3">
+        <p>{transaction.user.latitude}</p>
+        <p>{transaction.user.longitude}</p>
       </div>
       <div className="flex items-center justify-center">
         <p>{transaction.product.name}</p>

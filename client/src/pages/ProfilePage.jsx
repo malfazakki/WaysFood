@@ -21,10 +21,7 @@ export default function ProfilePage() {
     return responseTransaction.data.data;
   });
 
-  const successTransactions = transaction?.filter((element) => element.status == "approved");
-
-  console.log(successTransactions);
-
+  const successTransactions = transaction?.filter((element) => element.status == "success");
   return (
     <>
       <div className="bg-[#efefef] min-h-[100vh]">
@@ -60,21 +57,8 @@ export default function ProfilePage() {
                 <TransactionSuccessList transaction={transaction} key={index} />
               ))
             ) : (
-              <p>Are you not hungry yet?</p>
+              <p>You haven&apos;t bought anything. Are you not hungry yet?</p>
             )}
-            {/* <div className="bg-white p-3 grid grid-cols-[3fr_1fr]">
-              <div>
-                <h3>Nasi Goreng</h3>
-                <p>Saturday, 12 March 2021</p>
-                <p>Total: Rp. 45,000</p>
-              </div>
-              <div className="flex flex-col justify-around">
-                <img src="/logo-black.svg" alt="logo" />
-                <button disabled className="bg-green-200 text-sm text-green-600 rounded-md mt-2">
-                  Finished
-                </button>
-              </div>
-            </div> */}
           </div>
         </div>
       </div>

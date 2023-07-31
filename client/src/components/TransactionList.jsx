@@ -15,8 +15,6 @@ export default function TransactionLists() {
     return response.data.data;
   });
 
-  console.log(transactions);
-
   return (
     <div className="mt-[60px] mx-auto mb-20 ">
       <h1 className="text-3xl font-semibold ml-[12%] font-serif mt-[100px]">Income Transaction</h1>
@@ -29,7 +27,7 @@ export default function TransactionLists() {
             <p>Name</p>
           </div>
           <div className="flex items-center justify-center">
-            <p>Address</p>
+            <p>Lat Long</p>
           </div>
           <div className="flex items-center justify-center">
             <p>Product</p>

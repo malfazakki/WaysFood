@@ -63,7 +63,7 @@ export default function App() {
 
   return (
     <>
-      <div className="min-h-[100vh] bg-[#EFEFEF]">
+      <div className="min-h-[100vh] h-auto bg-[#EFEFEF]">
         {isLoading ? null : (
           <ModalProvider>
             <Routes>
