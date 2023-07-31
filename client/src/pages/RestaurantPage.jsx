@@ -4,7 +4,7 @@ import { useQuery } from "react-query";
 import { API } from "../config/api";
 
 import Navbar from "../components/Navbar";
-import { useModal } from "../context/ModalContext";
+// import { useModal } from "../context/ModalContext";
 import { useParams } from "react-router-dom";
 import RestaurantMenuList from "../components/RestaurantMenuList";
 // import SelectTicket from "../components/modal/SelectProduct";
@@ -12,7 +12,7 @@ import RestaurantMenuList from "../components/RestaurantMenuList";
 export default function Restaurant() {
   // const navigate = useNavigate();
   const { userId } = useParams();
-  const { openModal } = useModal();
+  // const { openModal } = useModal();
 
   const { data: menus } = useQuery("restaurantMenusCache", async () => {
     const response = await API.get("/products");

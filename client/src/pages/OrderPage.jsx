@@ -144,6 +144,8 @@ export default function OrderPage() {
     };
   }, []);
 
+  const partnerLat = transaction?.product?.partner?.latitude;
+  const partnerLng = transaction?.product?.partner?.longitude;
   return (
     <>
       <div className="bg-[#efefef] min-h-[100vh]">
@@ -236,7 +238,16 @@ export default function OrderPage() {
                 <button
                   className="w-[260px] py-[3px] pb-1 text-center  bg-zinc-700 text-white font-semibold rounded-md hover:bg-zinc-800 active:ring-2 active:ring-slate-500"
                   type="button"
-                  onClick={() => openModal(<MapRouting latitudeUser={latitude} longitudeUser={longitude} />)}
+                  onClick={() =>
+                    openModal(
+                      <MapRouting
+                        uLat={latitude}
+                        uLng={longitude}
+                        pLat={partnerLat}
+                        pLng={partnerLng}
+                      />
+                    )
+                  }
                 >
                   See How Far?
                 </button>

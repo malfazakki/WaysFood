@@ -193,17 +193,17 @@ func (h *handlerTransaction) Notification(c echo.Context) error {
 	orderId := notificationPayload["order_id"].(string)
 
 	order_id, _ := strconv.Atoi(orderId)
-	transaction, _ := h.TransactionRepository.GetTransaction(order_id)
+	// transaction, _ := h.TransactionRepository.GetTransaction(order_id)
 
 	if transactionStatus == "capture" {
 		if fraudStatus == "challenge" {
 			h.TransactionRepository.UpdateTransaction("pending", order_id)
 		} else if fraudStatus == "accept" {
-			h.TransactionRepository.UpdateTransaction("approved", order_id)
+			h.TransactionRepository.UpdateTransaction("success", order_id)
 		}
 	} else if transactionStatus == "settlement" {
-		SendMail("success", transaction)
-		h.TransactionRepository.UpdateTransaction("approved", order_id)
+		// SendMail("success", transaction)
+		h.TransactionRepository.UpdateTransaction("success", order_id)
 	} else if transactionStatus == "deny" {
 		h.TransactionRepository.UpdateTransaction("failed", order_id)
 	} else if transactionStatus == "cancel" || transactionStatus == "expire" {

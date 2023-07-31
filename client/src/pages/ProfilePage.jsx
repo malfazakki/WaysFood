@@ -1,18 +1,29 @@
 import { useQuery } from "react-query";
 import { useNavigate } from "react-router-dom";
-import { API } from "../config/api";
+import { API, setAuthToken } from "../config/api";
 
 //Components
 import Navbar from "../components/Navbar";
 import { useParams } from "react-router-dom";
+import TransactionSuccessList from "../components/TransactionSuccessList";
 
 export default function ProfilePage() {
+  setAuthToken(localStorage.token);
   const navigate = useNavigate();
   const { userId } = useParams();
   let { data: user } = useQuery("userProfileCache", async () => {
     const response = await API.get("/user/" + userId);
     return response.data.data;
   });
+
+  const { data: transaction } = useQuery("transactionSuccessHistory", async () => {
+    const responseTransaction = await API.get("/user-transactions");
+    return responseTransaction.data.data;
+  });
+
+  const successTransactions = transaction?.filter((element) => element.status == "approved");
+
+  console.log(successTransactions);
 
   return (
     <>
@@ -44,7 +55,14 @@ export default function ProfilePage() {
           </div>
           <div>
             <h1 className="font-semibold font-serif text-[26px] text-[#433434] mb-5">Transaction History</h1>
-            <div className="bg-white p-3 grid grid-cols-[3fr_1fr]">
+            {successTransactions && successTransactions.length > 0 ? (
+              successTransactions.map((transaction, index) => (
+                <TransactionSuccessList transaction={transaction} key={index} />
+              ))
+            ) : (
+              <p>Are you not hungry yet?</p>
+            )}
+            {/* <div className="bg-white p-3 grid grid-cols-[3fr_1fr]">
               <div>
                 <h3>Nasi Goreng</h3>
                 <p>Saturday, 12 March 2021</p>
@@ -56,7 +74,7 @@ export default function ProfilePage() {
                   Finished
                 </button>
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>
