@@ -79,9 +79,6 @@ func (h *handlerUser) UpdateUser(c echo.Context) error {
 	if request.Username != "" {
 		user.Username = request.Username
 	}
-	if request.Gender != "" {
-		user.Gender = request.Gender
-	}
 	if request.Phone != "" {
 		user.Phone = request.Phone
 	}

@@ -14,12 +14,11 @@ export default function Register() {
     email: "",
     password: "",
     username: "",
-    gender: "",
     phone: "",
     role: "",
   });
 
-  const { email, password, username, gender, phone, role } = form;
+  const { email, password, username, phone, role } = form;
 
   const handleChange = (e) => {
     setForm({
@@ -39,7 +38,6 @@ export default function Register() {
         email: "",
         password: "",
         username: "",
-        gender: "",
         phone: "",
         role: "",
       });

@@ -5,7 +5,6 @@ type User struct {
 	Email     string `json:"email" gorm:"type:varchar(255); unique"`
 	Password  string `json:"password" gorm:"type:varchar(255)"`
 	Username  string `json:"username" gorm:"type:varchar(255); unique"`
-	Gender    string `json:"gender" gorm:"type:varchar(255)"`
 	Phone     string `json:"phone" gorm:"type:varchar(255)"`
 	Role      string `json:"role" gorm:"default:'user'"`
 	Latitude  string `json:"latitude" gorm:"type:varchar(255)"`
