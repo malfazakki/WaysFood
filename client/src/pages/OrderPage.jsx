@@ -106,7 +106,7 @@ export default function OrderPage() {
   // useEffect to Convert the Location to real address
   useEffect(() => {
     // Fetch the address from LocationIQ when form.latitude or form.longitude changes
-    if (form.latitude && form.longitude) {
+    if (latitude && longitude) {
       const api_key = "pk.ec3ec8e73ea41ccefedfd001e1e1ddab";
       const url = `https://us1.locationiq.com/v1/reverse.php?key=${api_key}&lat=${latitude}&lon=${longitude}&format=json`;
 
@@ -234,19 +234,12 @@ export default function OrderPage() {
             </div>
 
             <div className="mt-10 flex justify-end">
-              {transaction?.status === "approved" ? (
+              {transaction?.status === "success" ? (
                 <button
                   className="w-[260px] py-[3px] pb-1 text-center  bg-zinc-700 text-white font-semibold rounded-md hover:bg-zinc-800 active:ring-2 active:ring-slate-500"
                   type="button"
                   onClick={() =>
-                    openModal(
-                      <MapRouting
-                        uLat={latitude}
-                        uLng={longitude}
-                        pLat={partnerLat}
-                        pLng={partnerLng}
-                      />
-                    )
+                    openModal(<MapRouting uLat={latitude} uLng={longitude} pLat={partnerLat} pLng={partnerLng} />)
                   }
                 >
                   See How Far?

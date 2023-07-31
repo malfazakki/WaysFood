@@ -54,7 +54,7 @@ export default function Navbar() {
         {/* Conditional Rendering Section */}
         {isLogin ? (
           <div className="w-full grid grid-flow-col-dense gap-5 justify-end">
-            <div className="w-full grid grid-cols-2 gap-5">
+            <div className="w-full grid grid-cols-2 gap-5 items-center">
               {role == "user" && (
                 <div
                   onClick={() => navigate("/user/cart")}

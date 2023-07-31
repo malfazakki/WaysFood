@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useMutation } from "react-query";
-import { API } from "../config/api";
+import { API, setAuthToken } from "../config/api";
 import { useModal } from "../context/ModalContext";
 import axios from "axios";
 
@@ -15,6 +15,7 @@ import selectMap from "../assets/images/select-map.svg";
 import Modal from "../components/modal/Modal";
 
 export default function EditProfilePage() {
+  setAuthToken(localStorage.token);
   const title = "Edit Profile";
   document.title = "WaysFood | " + title;
 
@@ -103,7 +104,7 @@ export default function EditProfilePage() {
 
   useEffect(() => {
     // Fetch the address from LocationIQ when form.latitude or form.longitude changes
-    if (form.latitude && form.longitude) {
+    if (latitude && longitude) {
       const api_key = "pk.ec3ec8e73ea41ccefedfd001e1e1ddab";
       const url = `https://us1.locationiq.com/v1/reverse.php?key=${api_key}&lat=${latitude}&lon=${longitude}&format=json`;
 

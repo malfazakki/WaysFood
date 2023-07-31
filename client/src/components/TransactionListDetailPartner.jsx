@@ -6,6 +6,7 @@ import { API } from "../config/api";
 // import TicketDetailAdmin from "./TicketDetailAdmin";
 
 // Assets
+import deleteIcon from "../../src/assets/images/deleteIcon.svg";
 
 export default function TransactionListsDetailPartner({ transaction, index, refetch }) {
   // eslint-disable-next-line no-unused-vars
@@ -52,7 +53,7 @@ export default function TransactionListsDetailPartner({ transaction, index, refe
         <p>{transaction.status}</p>
       </div>
       <div className="flex items-center font-medium text-orange-400 justify-center">
-        <p>{""}</p>
+        <img src={deleteIcon} alt="delete" onClick={() => handleDelete(transaction.id)} />
       </div>
     </div>
   );

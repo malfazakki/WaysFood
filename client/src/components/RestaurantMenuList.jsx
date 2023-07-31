@@ -2,7 +2,12 @@
 import { useNavigate } from "react-router-dom";
 import { useMutation } from "react-query";
 import { API } from "../config/api";
+import { UserContext } from "../context/UserContext";
+import { useContext } from "react";
 export default function RestaurantMenuList({ menus }) {
+  const [state, dispatch] = useContext(UserContext);
+  const { user } = state;
+  const { role } = user;
   const navigate = useNavigate();
 
   const transaction = {
@@ -28,12 +33,14 @@ export default function RestaurantMenuList({ menus }) {
         <img src={menus.image} alt="bg-king" className="object-cover w-full h-full" />
         <p className="text-sm w-full font-semibold font-serif mt-2">{menus.name}</p>
         <p className="text-md w-full font-bold font-sans mt-1 text-red-500">Rp. {menus.price}</p>
-        <button
-          className="w-full capitalize font-bold font-sans rounded-lg py-1 bg-[#ffc700] hover:bg-[#ffc800] active:bg-yellow-500 active:ring-2 active:ring-yellow-300 mt-3"
-          onClick={(e) => handleBuy.mutate(e)}
-        >
-          order
-        </button>
+        {role === "partner" ? null : (
+          <button
+            className="w-full capitalize font-bold font-sans rounded-lg py-1 bg-[#ffc700] hover:bg-[#ffc800] active:bg-yellow-500 active:ring-2 active:ring-yellow-300 mt-3"
+            onClick={(e) => handleBuy.mutate(e)}
+          >
+            order
+          </button>
+        )}
       </div>
     </>
   );

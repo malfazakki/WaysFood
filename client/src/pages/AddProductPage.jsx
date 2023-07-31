@@ -1,7 +1,7 @@
 import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { useMutation } from "react-query";
-import { API } from "../config/api";
+import { API, setAuthToken } from "../config/api";
 import { UserContext } from "../context/UserContext";
 
 //Component
@@ -11,6 +11,7 @@ import Navbar from "../components/Navbar";
 import attachment from "../assets/images/attachment.svg";
 
 export default function AddProductPage() {
+  setAuthToken(localStorage.token);
   const [state] = useContext(UserContext);
   const { user } = state;
   const { id } = user;

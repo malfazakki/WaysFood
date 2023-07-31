@@ -2,6 +2,7 @@
 
 import { useQuery } from "react-query";
 import { API } from "../config/api";
+import { setAuthToken } from "../config/api";
 
 import Navbar from "../components/Navbar";
 // import { useModal } from "../context/ModalContext";
@@ -10,6 +11,7 @@ import RestaurantMenuList from "../components/RestaurantMenuList";
 // import SelectTicket from "../components/modal/SelectProduct";
 
 export default function Restaurant() {
+  setAuthToken(localStorage.token);
   // const navigate = useNavigate();
   const { userId } = useParams();
   // const { openModal } = useModal();

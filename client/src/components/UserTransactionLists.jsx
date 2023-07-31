@@ -18,7 +18,7 @@ export default function UserTransactionLists({ transaction }) {
           <p className="text-lg font-semibold font-serif ml-4">{transaction?.product?.name}</p>
         </div>
         <div className="grid justify-end">
-          <p className="text-red-500">{transaction?.product?.price}</p>
+          <p className="text-red-500 font-semibold mr-10">Rp. {transaction?.product?.price}</p>
         </div>
       </div>
     </>
