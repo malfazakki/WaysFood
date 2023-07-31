@@ -31,7 +31,7 @@ function LocationMarker({ onLocate, clickedPosition }) {
 
   const markerIcon = new L.Icon({
     iconUrl: "/marker-icon.png",
-    iconSize: [40, 40],
+    iconSize: [30, 40],
     iconAnchor: [17, 46], //[left/right, top/bottom]
     popupAnchor: [0, -46], //[left/right, top/bottom]
   });

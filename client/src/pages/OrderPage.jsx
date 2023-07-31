@@ -192,32 +192,10 @@ export default function OrderPage() {
                     <img src={transaction?.product?.image} alt="geprek" className="h-full object-cover" />
                     <div className="ml-5 flex flex-col justify-between py-2">
                       <p className="font-bold">{transaction?.product?.name}</p>
-                      {/* <div className="flex gap-5">
-                      <button
-                        className="py-0 px-2 bg-yellow-500"
-                        onClick={() => {
-                          setCount(count - 1);
-                        }}
-                      >
-                        -
-                      </button>
-                      <p>{count}</p>
-                      <button
-                        className="py-0 px-2 bg-yellow-500"
-                        onClick={() => {
-                          setCount(count + 1);
-                        }}
-                      >
-                        +
-                      </button>
-                    </div> */}
                     </div>
                   </div>
                   <div className="grid grid-rows-2 justify-end py-2">
                     <p className="text-md w-full font-sans mt-1 text-red-500">Rp. {transaction?.product?.price}</p>
-                    {/* <div className="flex justify-end">
-                    <img src={deleteIcon} alt="deleteIcon" className="scale-[80%]" />
-                  </div> */}
                   </div>
                 </div>
               </div>

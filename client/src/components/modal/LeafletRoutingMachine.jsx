@@ -15,7 +15,7 @@ const LeafletRoutingMachine = ({ uLat, uLng, pLat, pLng }) => {
   });
   const markerIcon = new L.Icon({
     iconUrl: "/marker-icon.png",
-    iconSize: [40, 40],
+    iconSize: [30, 40],
     iconAnchor: [17, 46], //[left/right, top/bottom]
     popupAnchor: [0, -46], //[left/right, top/bottom]
   });
@@ -24,7 +24,7 @@ const LeafletRoutingMachine = ({ uLat, uLng, pLat, pLng }) => {
     if (markerRef.current) {
       markerRef.current.setLatLng([uLat, uLng]);
     } else {
-      markerRef.current = L.marker([uLat, uLng], { icon: markerIcon }).addTo(map);
+      markerRef.current = L.marker([uLat, uLng], { icon: DefaultIcon }).addTo(map);
     }
   }, [uLat, uLng, map]);
 
@@ -32,6 +32,9 @@ const LeafletRoutingMachine = ({ uLat, uLng, pLat, pLng }) => {
     if (routingControlRef.current) {
       map.removeControl(routingControlRef.current);
     }
+
+    L.marker([pLat, pLng], { icon: markerIcon }).addTo(map);
+    L.marker([uLat, uLng], { icon: markerIcon }).addTo(map);
 
     routingControlRef.current = L.Routing.control({
       waypoints: [L.latLng(pLat, pLng), L.latLng(uLat, uLng)],

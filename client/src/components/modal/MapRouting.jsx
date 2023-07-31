@@ -23,7 +23,7 @@ const MapRouting = ({ uLat, uLng, pLat, pLng }) => {
           ref={mapRef} // Assign the map reference
         >
           <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
-          <LeafletRoutingMachine uLat={uLat} uLng={pLng} pLat={pLat} pLng={pLng} />
+          <LeafletRoutingMachine uLat={uLat} uLng={uLng} pLat={pLat} pLng={pLng} />
         </MapContainer>
       </div>
     </div>
