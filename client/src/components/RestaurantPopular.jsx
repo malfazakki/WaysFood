@@ -14,7 +14,7 @@ export default function RestaurantPopular() {
   return (
     <>
       <div className="w-[70%] mx-auto mt-10">
-        <h1 className="font-semibold font-serif text-[28px] text-[#433434] mb-5">Popular Restaurant</h1>
+        <h1 className="font-semibold font-serif text-[28px] text-[#433434] mb-5">Cart</h1>
         <div className="grid grid-cols-4 gap-4">
           {popularRestaurant && popularRestaurant.length > 0 ? (
             popularRestaurant.map((restaurants, index) => (

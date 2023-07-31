@@ -6,5 +6,5 @@ type Transaction struct {
 	User      UserProductResponse        `json:"user"`
 	ProductID int                        `json:"product_id" form:"product_id" gorm:"type: int; onDelete:CASCADE; onUpdate:CASCADE;"`
 	Product   ProductTransactionResponse `json:"product"`
-	Status    string                     `json:"status" form:"status" gorm:"default: 'on the way'"`
+	Status    string                     `json:"status" form:"status" gorm:"default: 'pending'"`
 }
