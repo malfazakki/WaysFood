@@ -2,7 +2,7 @@ package models
 
 type User struct {
 	ID        int    `json:"id" gorm:"primary_key"`
-	Email     string `json:"email" gorm:"type:varchar(255) unique"`
+	Email     string `json:"email" gorm:"type:varchar(255); unique"`
 	Password  string `json:"password" gorm:"type:varchar(255)"`
 	Username  string `json:"username" gorm:"type:varchar(255); unique"`
 	Gender    string `json:"gender" gorm:"type:varchar(255)"`
@@ -10,7 +10,7 @@ type User struct {
 	Role      string `json:"role" gorm:"default:'user'"`
 	Latitude  string `json:"latitude" gorm:"type:varchar(255)"`
 	Longitude string `json:"longitude" gorm:"type:varchar(255)"`
-	Image    string `json:"image" form:"image" gorm:"type:varchar(255)"`
+	Image     string `json:"image" form:"image" gorm:"type:varchar(255)"`
 }
 
 type UserProductResponse struct {

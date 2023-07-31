@@ -56,7 +56,7 @@ func (h *handlerUser) UpdateUser(c echo.Context) error {
 		Longitude: c.FormValue("longitude"),
 		Image:     dataFile,
 	}
-	
+
 	validation := validator.New()
 	err := validation.Struct(request)
 	if err != nil {

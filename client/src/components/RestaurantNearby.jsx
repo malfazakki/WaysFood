@@ -1,11 +1,11 @@
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 
-import nasiGoreng from "../assets/images/nasi-goreng.svg";
+// import nasiGoreng from "../assets/images/nasi-goreng.svg";
 
 export default function RestaurantNearby() {
   return (
     <>
-      <div className="w-[70%] mx-auto mt-16">
+      {/* <div className="w-[70%] mx-auto mt-16">
         <h1 className="font-semibold font-serif text-[26px] text-[#433434] mb-5">Restaurant Nearby</h1>
         <div className="grid grid-cols-4 gap-4">
           <Link to="/restaurant">
@@ -34,7 +34,7 @@ export default function RestaurantNearby() {
       </div>
       <br />
       <br />
-      <br />
+      <br /> */}
     </>
   );
 }
