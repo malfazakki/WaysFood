@@ -12,8 +12,19 @@ require (
 
 require github.com/joho/godotenv v1.5.1
 
+require github.com/midtrans/midtrans-go v1.3.6
+
 require (
+	gopkg.in/alexcesaro/quotedprintable.v3 v3.0.0-20150716171945-2caba252f4dc // indirect
+	gopkg.in/gomail.v2 v2.0.0-20160411212932-81ebce5c23df 
+)
+
+require (
+	github.com/cloudinary/cloudinary-go/v2 v2.3.0
+	github.com/creasty/defaults v1.5.1 // indirect
 	github.com/golang-jwt/jwt v3.2.2+incompatible // indirect
+	github.com/google/uuid v1.2.0 // indirect
+	github.com/gorilla/schema v1.2.0 // indirect
 	golang.org/x/time v0.3.0 // indirect
 )
 

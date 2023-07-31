@@ -13,6 +13,8 @@ type TransactionRepository interface {
 	UserTransactions(UserID int) ([]models.Transaction, error)
 	DeleteTransaction(transaction models.Transaction, ID int) (models.Transaction, error)
 	UpdateTransaction(status string, orderID int) (models.Transaction, error)
+	GetUserTransaction(ID int) (models.User, error)
+	UpdateUserTransaction(user models.User) (models.User, error)
 }
 
 func RepositoryTransaction(db *gorm.DB) *repository {
@@ -21,7 +23,7 @@ func RepositoryTransaction(db *gorm.DB) *repository {
 
 func (r *repository) FindTransactions() ([]models.Transaction, error) {
 	var transactions []models.Transaction
-	err := r.db.Preload("User").Preload("Product").Find(&transactions).Error
+	err := r.db.Preload("User").Preload("Product").Preload("Product.User").Find(&transactions).Error
 
 	return transactions, err
 }
@@ -29,14 +31,14 @@ func (r *repository) FindTransactions() ([]models.Transaction, error) {
 func (r *repository) UserTransactions(UserID int) ([]models.Transaction, error) {
 	var transactions []models.Transaction
 
-	err := r.db.Preload("User").Preload("Product").Where("user_id = ?", UserID).Find(&transactions).Error
+	err := r.db.Preload("User").Preload("Product").Preload("Product.User").Where("user_id = ?", UserID).Find(&transactions).Error
 
 	return transactions, err
 }
 
 func (r *repository) GetTransaction(ID int) (models.Transaction, error) {
 	var transaction models.Transaction
-	err := r.db.Preload("User").Preload("Product").First(&transaction, ID).Error
+	err := r.db.Preload("User").Preload("Product").Preload("Product.User").First(&transaction, ID).Error
 
 	return transaction, err
 }
@@ -60,4 +62,17 @@ func (r *repository) UpdateTransaction(status string, orderID int) (models.Trans
 	transaction.Status = status
 	err := r.db.Save(&transaction).Error
 	return transaction, err
+}
+
+func (r *repository) GetUserTransaction(ID int) (models.User, error) {
+	var user models.User
+	err := r.db.First(&user, ID).Error
+
+	return user, err
+}
+
+func (r *repository) UpdateUserTransaction(user models.User) (models.User, error) {
+	err := r.db.Save(&user).Error
+
+	return user, err
 }

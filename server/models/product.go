@@ -10,10 +10,12 @@ type Product struct {
 }
 
 type ProductTransactionResponse struct {
-	ID    int    `json:"id"`
-	Name  string `json:"name"`
-	Price int    `json:"price"`
-	Image string `json:"image"`
+	ID     int                 `json:"id"`
+	Name   string              `json:"name"`
+	Price  int                 `json:"price"`
+	Image  string              `json:"image"`
+	UserID int                 `json:"-"`
+	User   UserProductResponse `json:"partner"`
 }
 
 func (ProductTransactionResponse) TableName() string {

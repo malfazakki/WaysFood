@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import L from "leaflet";
 import "leaflet-routing-machine";
 import "leaflet-routing-machine/dist/leaflet-routing-machine.css";
@@ -41,6 +41,7 @@ const LeafletRoutingMachine = () => {
         })
         .addTo(map);
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return null;
 };

@@ -24,11 +24,7 @@ export default function ProfilePage() {
             <h1 className="font-semibold font-serif text-[26px] text-[#433434] mb-5">My Profile</h1>
             <div className="flex gap-8">
               <div className="w-[180px] h-[222px]">
-                <img
-                  src={"http://localhost:5000/uploads/" + user?.image}
-                  alt=""
-                  className="object-cover w-full h-full"
-                />
+                <img src={user?.image} alt="" className="object-cover w-full h-full" />
               </div>
               <div className="flex flex-col">
                 <h2 className="text-xl font-semibold text-[#433434]">Username</h2>

@@ -1,8 +1,9 @@
 import { useState, useEffect, useContext } from "react";
 import { useMutation, useQuery } from "react-query";
+import { useNavigate, useParams } from "react-router-dom";
 import { useModal } from "../context/ModalContext";
 import { UserContext } from "../context/UserContext";
-import { API } from "../config/api";
+import { API, setAuthToken } from "../config/api";
 import axios from "axios";
 
 //Component
@@ -11,12 +12,14 @@ import MapLiveLocation from "../components/modal/MapLiveLocation";
 import MapRouting from "../components/modal/MapRouting";
 
 // Assets
+// eslint-disable-next-line no-unused-vars
 import geprek from "../assets/images/geprek.svg";
 // import deleteIcon from "../assets/images/delete.svg";
 import selectMap from "../assets/images/select-map.svg";
 import Modal from "../components/modal/Modal";
 
 export default function OrderPage() {
+  setAuthToken(localStorage.token);
   // eslint-disable-next-line no-unused-vars
   const [state, dispatch] = useContext(UserContext);
   const { user } = state;
@@ -25,7 +28,8 @@ export default function OrderPage() {
   const { openModal } = useModal();
   const [clickedPosition, setClickedPosition] = useState(null);
   const [location, setLocation] = useState("");
-  const [ordered, setOrdered] = useState(false);
+  const { orderId } = useParams();
+  const navigate = useNavigate();
 
   const [form, setForm] = useState({
     latitude: "",
@@ -42,6 +46,9 @@ export default function OrderPage() {
     });
   }
 
+  const latitude = clickedPosition ? clickedPosition.lat : form?.latitude;
+  const longitude = clickedPosition ? clickedPosition.lng : form?.longitude;
+
   useEffect(() => {
     getProfileUpdate();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -54,33 +61,49 @@ export default function OrderPage() {
     });
   };
 
+  // Handle Submit to get UserLocation
   const handleSubmit = useMutation(async (e) => {
     try {
       e.preventDefault();
 
       const config = {
         headers: {
-          "Content-type": "multipart/form-data",
+          "Content-type": "application/json",
         },
       };
 
-      const formData = new FormData();
-      if (clickedPosition) {
-        formData.set("latitude", clickedPosition.lat);
-        formData.set("longitude", clickedPosition.lng);
-      }
+      let data = {
+        transaction_id: orderId,
+        latitude: latitude,
+        longitude: longitude,
+      };
 
-      const response = await API.patch("/user/" + id, formData, config);
-      console.log(response.data);
-      setOrdered(true);
+      const responseMidtrans = await API.post("/transaction/midtrans", data, config);
+
+      // code here
+      const token = responseMidtrans.data.data.token;
+      window.snap.pay(token, {
+        onSuccess: function () {
+          navigate("/user/order/" + orderId);
+        },
+        onPending: function (result) {
+          navigate("/user/profile/" + id);
+          console.log(result);
+        },
+        onError: function (result) {
+          console.log(result);
+          navigate("/user/cart/" + id);
+        },
+        onClose: function () {
+          alert("You closed the popup without finishing the payment!");
+        },
+      });
     } catch (error) {
       console.log(error);
     }
   });
 
-  const latitude = clickedPosition ? clickedPosition.lat : form?.latitude;
-  const longitude = clickedPosition ? clickedPosition.lng : form?.longitude;
-
+  // useEffect to Convert the Location to real address
   useEffect(() => {
     // Fetch the address from LocationIQ when form.latitude or form.longitude changes
     if (form.latitude && form.longitude) {
@@ -98,7 +121,28 @@ export default function OrderPage() {
           console.error("Error fetching data:", error);
         });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [latitude, longitude]);
+
+  // Fetching the Transaction
+  const { data: transaction } = useQuery("transactionFetchingCache", async () => {
+    const responseTransaction = await API.get("transaction/" + orderId);
+    return responseTransaction.data.data;
+  });
+
+  useEffect(() => {
+    const midtransScriptUrl = "https://app.sandbox.midtrans.com/snap/snap.js";
+    const myMidtransClientKey = import.meta.env.VITE_MIDTRANS_CLIENT_KEY;
+
+    let scriptTag = document.createElement("script");
+    scriptTag.src = midtransScriptUrl;
+    scriptTag.setAttribute("data-client-key", myMidtransClientKey);
+
+    document.body.appendChild(scriptTag);
+    return () => {
+      document.body.removeChild(scriptTag);
+    };
+  }, []);
 
   return (
     <>
@@ -143,9 +187,9 @@ export default function OrderPage() {
               <div className="border-y-[2px] border-zinc-700 mt-2">
                 <div className="py-8 grid grid-cols-2">
                   <div className="grid grid-cols-[80px_1fr]">
-                    <img src={geprek} alt="geprek" />
+                    <img src={transaction?.product?.image} alt="geprek" className="h-full object-cover" />
                     <div className="ml-5 flex flex-col justify-between py-2">
-                      <p className="font-bold">Paket Geprek</p>
+                      <p className="font-bold">{transaction?.product?.name}</p>
                       {/* <div className="flex gap-5">
                       <button
                         className="py-0 px-2 bg-yellow-500"
@@ -168,7 +212,7 @@ export default function OrderPage() {
                     </div>
                   </div>
                   <div className="grid grid-rows-2 justify-end py-2">
-                    <p className="text-md w-full font-sans mt-1 text-red-500">Rp. 25,000</p>
+                    <p className="text-md w-full font-sans mt-1 text-red-500">Rp. {transaction?.product?.price}</p>
                     {/* <div className="flex justify-end">
                     <img src={deleteIcon} alt="deleteIcon" className="scale-[80%]" />
                   </div> */}
@@ -182,13 +226,13 @@ export default function OrderPage() {
                 </div>
                 <div className="flex justify-between">
                   <p>Ongkir</p>
-                  <p className="text-md font-bold font-sans text-red-500">Rp. 10,000</p>
+                  <p className="text-md font-bold font-sans text-red-500">Rp. 0 (free ongkir)</p>
                 </div>
               </div>
             </div>
 
             <div className="mt-10 flex justify-end">
-              {ordered ? (
+              {transaction?.status === "approved" ? (
                 <button
                   className="w-[260px] py-[3px] pb-1 text-center  bg-zinc-700 text-white font-semibold rounded-md hover:bg-zinc-800 active:ring-2 active:ring-slate-500"
                   type="button"

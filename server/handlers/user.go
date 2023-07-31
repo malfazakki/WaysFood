@@ -40,7 +40,7 @@ func (h *handlerUser) GetUser(c echo.Context) error {
 		return c.JSON(http.StatusBadRequest, dto.ErrorResult{Code: http.StatusBadRequest, Message: err.Error()})
 	}
 
-	user.Image = Path_file + user.Image
+	// user.Image = Path_file + user.Image
 
 	return c.JSON(http.StatusOK, dto.SuccessResult{Code: http.StatusOK, Data: user})
 }

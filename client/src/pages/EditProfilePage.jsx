@@ -86,8 +86,10 @@ export default function EditProfilePage() {
 
       const response = await API.patch("/user/" + userId, formData, config);
       console.log(response.data);
+      alert("success");
     } catch (error) {
       console.log(error);
+      alert("error");
     }
   });
 

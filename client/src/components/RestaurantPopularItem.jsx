@@ -9,11 +9,7 @@ export default function RestaurantPopularItem({ restaurants }) {
         className="bg-white p-4 flex justify-around items-center cursor-pointer"
         onClick={() => navigate(`/user/restaurant/${restaurants?.id}`)}
       >
-        <img
-          src={`http://localhost:5000/uploads/${restaurants?.image}`}
-          alt={restaurants.username}
-          className="h-[65px] w-[65px] object-cover"
-        />{" "}
+        <img src={restaurants?.image} alt={restaurants.username} className="h-[65px] w-[65px] object-cover" />{" "}
         <p className="text-lg font-semibold font-serif">{restaurants.username}</p>
       </div>
     </>

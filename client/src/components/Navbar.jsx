@@ -69,7 +69,7 @@ export default function Navbar() {
               >
                 {image ? (
                   <img
-                    src={"http://localhost:5000/uploads/" + image}
+                    src={image}
                     className=" cursor-pointer object-cover h-[40px] w-[40px] rounded-full border-[3.5px] border-[#433434]"
                   />
                 ) : (

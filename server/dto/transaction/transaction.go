@@ -8,10 +8,9 @@ type TransactionRequest struct {
 }
 
 type TransactionRequestMidtrans struct {
-	ID       string `json:"id" gorm:"primary_key"`
-	Username string `json:"username" form:"full_name"`
-	Email    string `json:"email" form:"email" `
-	Price    int    `json:"price" form:"price"`
+	ID        string `json:"transaction_id" gorm:"primary_key"`
+	Latitude  string `json:"latitude"`
+	Longitude string `json:"longitude"`
 }
 
 type TransactionResponse struct {
