@@ -1,5 +1,5 @@
 import { useState, useEffect, useContext } from "react";
-import { useMutation } from "react-query";
+import { useMutation, useQuery } from "react-query";
 import { useModal } from "../context/ModalContext";
 import { UserContext } from "../context/UserContext";
 import { API } from "../config/api";
@@ -8,6 +8,7 @@ import axios from "axios";
 //Component
 import Navbar from "../components/Navbar";
 import MapLiveLocation from "../components/modal/MapLiveLocation";
+import MapRouting from "../components/modal/MapRouting";
 
 // Assets
 import geprek from "../assets/images/geprek.svg";
@@ -98,6 +99,7 @@ export default function Cart() {
         });
     }
   }, [latitude, longitude]);
+
 
   return (
     <>
@@ -190,7 +192,8 @@ export default function Cart() {
               {ordered ? (
                 <button
                   className="w-[260px] py-[3px] pb-1 text-center  bg-zinc-700 text-white font-semibold rounded-md hover:bg-zinc-800 active:ring-2 active:ring-slate-500"
-                  type="submit"
+                  type="button"
+                  onClick={() => openModal(<MapRouting latitudeUser={latitude} longitudeUser={longitude} />)}
                 >
                   See How Far?
                 </button>

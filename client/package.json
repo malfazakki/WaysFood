@@ -13,9 +13,12 @@
     "@react-leaflet/core": "^2.1.0",
     "axios": "^1.4.0",
     "leaflet": "^1.9.4",
+    "leaflet-control-geocoder": "^2.4.0",
+    "leaflet-routing-machine": "^3.2.12",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-leaflet": "^4.2.1",
+    "react-leaflet-routing-machine": "^0.0.5",
     "react-query": "^3.39.3",
     "react-router-dom": "^6.14.2"
   },
