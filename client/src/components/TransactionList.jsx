@@ -7,6 +7,7 @@ import TransactionListsDetailPartner from "../components/TransactionListDetailPa
 import Modal from "./modal/Modal";
 
 export default function TransactionLists() {
+  // eslint-disable-next-line no-unused-vars
   const [state, dispatch] = useContext(UserContext);
   const { user } = state;
   const { id } = user;

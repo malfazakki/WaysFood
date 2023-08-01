@@ -15,7 +15,7 @@ const LeafletRoutingMachine = ({ uLat, uLng, pLat, pLng }) => {
   });
   const markerIcon = new L.Icon({
     iconUrl: "/marker-icon.png",
-    iconSize: [30, 40],
+    iconSize: [28, 40],
     iconAnchor: [17, 46], //[left/right, top/bottom]
     popupAnchor: [0, -46], //[left/right, top/bottom]
   });
@@ -26,6 +26,7 @@ const LeafletRoutingMachine = ({ uLat, uLng, pLat, pLng }) => {
     } else {
       markerRef.current = L.marker([uLat, uLng], { icon: DefaultIcon }).addTo(map);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [uLat, uLng, map]);
 
   useEffect(() => {
@@ -53,6 +54,9 @@ const LeafletRoutingMachine = ({ uLat, uLng, pLat, pLng }) => {
       draggableWaypoints: false,
       fitSelectedRoutes: true,
       showAlternatives: false,
+      createMarker: function () {
+        return null; // Return null to remove the default markers.
+      },
     }).addTo(map);
 
     routingControlRef.current.on("routesfound", function (e) {
@@ -68,6 +72,7 @@ const LeafletRoutingMachine = ({ uLat, uLng, pLat, pLng }) => {
         map.removeControl(routingControlRef.current);
       }
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [uLat, uLng, pLat, pLng, map]);
 
   return null;
