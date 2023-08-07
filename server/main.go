@@ -13,10 +13,7 @@ import (
 )
 
 func main() {
-	errEnv := godotenv.Load()
-	if errEnv != nil {
-		panic("Failed to load env file")
-	}
+	godotenv.Load()
 
 	e := echo.New()
 
