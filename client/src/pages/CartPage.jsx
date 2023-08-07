@@ -7,7 +7,7 @@ import Navbar from "../components/Navbar";
 export default function CartPage() {
   setAuthToken(localStorage.token);
   const { data: transactions } = useQuery("pendingTransactionCache", async () => {
-    const response = await API.get("/transactions");
+    const response = await API.get("/user-transactions");
     return response.data.data;
   });
 
@@ -24,7 +24,7 @@ export default function CartPage() {
               <UserTransactionLists transaction={transaction} key={index} />
             ))
           ) : (
-            <p>No Restaurant</p>
+            <p>No Product added to cart.</p>
           )}
         </div>
       </div>
