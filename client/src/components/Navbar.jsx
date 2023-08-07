@@ -30,6 +30,7 @@ export default function Navbar() {
   };
 
   const logout = () => {
+    confirm("you're about to log out");
     dispatch({
       type: "LOGOUT",
     });

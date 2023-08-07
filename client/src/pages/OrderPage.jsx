@@ -185,8 +185,8 @@ export default function OrderPage() {
               </div>
             </div>
             <p className="mt-6 font-serif  text-[#433434]">Review Your Order</p>
-            <div className="grid grid-cols-[2.3fr_1fr] gap-20">
-              <div className="border-y-[2px] border-zinc-700 mt-2">
+            <div className="">
+              <div className="border-y-[2px] border-zinc-700 mt-2 px-5">
                 <div className="py-8 grid grid-cols-2">
                   <div className="grid grid-cols-[80px_1fr]">
                     <img src={transaction?.product?.image} alt="geprek" className="h-full object-cover" />
@@ -195,11 +195,11 @@ export default function OrderPage() {
                     </div>
                   </div>
                   <div className="grid grid-rows-2 justify-end py-2">
-                    <p className="text-md w-full font-sans mt-1 text-red-500">Rp. {transaction?.product?.price}</p>
+                    <p className="text-md w-full font-sans mt-1 font-semibold text-xl text-red-500">Rp. {transaction?.product?.price}</p>
                   </div>
                 </div>
               </div>
-              <div className="border-y-[2px] border-zinc-700 mt-2 flex flex-col py-2 justify-evenly">
+              {/* <div className="border-y-[2px] border-zinc-700 mt-2 flex flex-col py-2 justify-evenly">
                 <div className="flex justify-between">
                   <p>Subtotal</p>
                   <p className="text-md font-bold font-sans text-red-500">Rp. 25,000</p>
@@ -208,7 +208,7 @@ export default function OrderPage() {
                   <p>Ongkir</p>
                   <p className="text-md font-bold font-sans text-red-500">Rp. 0 (free ongkir)</p>
                 </div>
-              </div>
+              </div> */}
             </div>
 
             <div className="mt-10 flex justify-end">

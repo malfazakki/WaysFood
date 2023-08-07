@@ -30,8 +30,8 @@ export default function RestaurantMenuList({ menus }) {
   });
   return (
     <>
-      <div className="bg-white px-5 pt-4 pb-4 flex flex-col justify-around items-center h-[266px]">
-        <img src={menus.image} alt="bg-king" className="object-cover w-full h-full" />
+      <div className="bg-white px-5 py-4 pt-4 pb-4 flex flex-col justify-around items-center h-[266px]">
+        <img src={menus.image} alt="bg-king" className="object-cover w-full h-full min-h-0 min-w-0" />
         <p className="text-sm w-full font-semibold font-serif mt-2">{menus.name}</p>
         <p className="text-md w-full font-bold font-sans mt-1 text-red-500">Rp. {menus.price}</p>
         {role === "partner" ? null : (

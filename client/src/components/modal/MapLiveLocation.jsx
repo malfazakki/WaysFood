@@ -14,7 +14,7 @@ function LocationMarker({ onLocate, clickedPosition }) {
     },
     locationfound(e) {
       setPosition(e.latlng);
-      map.flyTo(e.latlng, map.getZoom());
+      map.flyTo(e.latlng, 18);
     },
   });
 
@@ -62,10 +62,10 @@ const MapLiveLocation = ({ clickedPosition, setClickedPosition }) => {
 
   return (
     <div className="relative mx-auto bg-white rounded-md shadow-lg">
-      <div className="container m-auto flex flex-col justify-center items-center py-5 px-5 shadow-lg">
+      <div className="m-auto flex flex-col justify-center items-center py-5 px-5 shadow-lg">
         <MapContainer
-          center={[51.505, -0.09]}
-          zoom={16}
+          center={[-0.789275, 113.921327]}
+          zoom={5}
           style={{ width: "80vw", height: "60vh", margin: "0 auto" }}
           ref={mapRef} // Assign the map reference
         >

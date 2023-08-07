@@ -15,7 +15,7 @@ const MapRouting = ({ uLat, uLng, pLat, pLng }) => {
 
   return (
     <div className="relative mx-auto bg-white rounded-md shadow-lg">
-      <div className="container m-auto flex flex-col justify-center items-center py-10 px-5 shadow-lg">
+      <div className="m-auto flex flex-col justify-center items-center py-10 px-5 shadow-lg min-w-0">
         <MapContainer
           center={[-6.42806409558657, 106.75406445110613]}
           zoom={10}

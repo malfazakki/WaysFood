@@ -41,14 +41,14 @@ export default function Login() {
       });
 
       setAuthToken(localStorage.token);
+      // openModal(<Alert>Success</Alert>);
+      alert("login success");
 
       if (response.data.data.role === "partner") {
         navigate("/partner");
       } else {
         navigate("/");
       }
-
-      setMessage(() => openModal(<Alert>Success</Alert>));
     } catch (error) {
       const alert = (
         <Alert variant="danger" className="py-1">
