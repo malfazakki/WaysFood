@@ -13,6 +13,7 @@ export default function CartPage() {
 
   const pendingTransactions = transactions?.filter((element) => element.status === "pending");
 
+
   return (
     <>
       <Navbar />

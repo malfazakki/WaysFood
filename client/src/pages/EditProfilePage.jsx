@@ -26,6 +26,7 @@ export default function EditProfilePage() {
   const [location, setLocation] = useState("");
 
   const [clickedPosition, setClickedPosition] = useState(null);
+  const [preview, setPreview] = useState(null);
 
   const [form, setForm] = useState({
     email: "",
@@ -60,6 +61,11 @@ export default function EditProfilePage() {
       ...form,
       [e.target.name]: e.target.files ? e.target.files : e.target.value,
     });
+
+    if (e.target.type === "file") {
+      let url = URL.createObjectURL(e.target.files[0]);
+      setPreview(url);
+    }
   };
 
   const handleSubmit = useMutation(async (e) => {
@@ -135,7 +141,7 @@ export default function EditProfilePage() {
                 <input
                   type="text"
                   placeholder="Username"
-                  className="py-2 px-5 bg-[#e2e2e2] border-2 border-[#766c6c] rounded-md placeholder-[#928b8b]"
+                  className="py-2 h-fit px-5 bg-[#e2e2e2] border-2 border-[#766c6c] rounded-md placeholder-[#928b8b]"
                   name="username"
                   onChange={handleChange}
                   value={form?.username}
@@ -149,6 +155,19 @@ export default function EditProfilePage() {
                     <img src={attachment} alt="attachment" />
                     <input type="file" name="image" id="image" hidden onChange={handleChange} />
                   </label>
+                  {preview && (
+                    <div className="flex justify-center mt-2">
+                      <img
+                        src={preview}
+                        style={{
+                          maxWidth: "200px",
+                          maxHeight: "200px",
+                          objectFit: "cover",
+                        }}
+                        alt={preview}
+                      />
+                    </div>
+                  )}
                 </div>
               </div>
               <input
